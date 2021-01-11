@@ -39,6 +39,9 @@ const checkTrue = function () {
     document.querySelector(".message").textContent = "Введите число!";
   else if (inputNumber === randomNum) {
     document.querySelector(".message").textContent = "Правильно!";
+
+    document.querySelector(".check").disabled = true;
+
     document.querySelector(".number").textContent = inputNumber;
     document.querySelector("body").style.backgroundColor = "#58c936";
     if (highScore < score) highScore = score;
@@ -52,6 +55,20 @@ const checkTrue = function () {
     }
   }
 
+  if (score === 0) {
+    document.querySelector(".message").textContent = "Ты проиграл!";
+
+    document.querySelector(".check").disabled = true;
+
+    document.querySelector("body").style.backgroundColor = "#ff3b3b";
+    document.querySelector(".rand-num").value = "";
+    score = 20;
+
+    randomNum = Math.trunc(Math.random() * 20) + 1;
+    document.querySelector("#rand-between").textContent = 20;
+    document.querySelector(".rand-num").addEventListener("input", findRandom);
+  }
+
   document.querySelector(".highscore").textContent = highScore;
 
   document.querySelector(".guess").value = "";
@@ -60,8 +77,10 @@ const checkTrue = function () {
 document.querySelector(".check").addEventListener("click", checkTrue);
 
 const reload = function () {
+  document.querySelector(".check").disabled = false;
   document.querySelector("body").style.backgroundColor = "#222";
   document.querySelector(".rand-num").value = "";
+  score = 20;
 
   randomNum = Math.trunc(Math.random() * 20) + 1;
   document.querySelector("#rand-between").textContent = 20;
